@@ -1,0 +1,43 @@
+* C:\Users\Shachi\Desktop\LTspice_ckts\Lockin_original\orig_circuit.asc
+V1 Vdd 0 16 Rser=200
+V2 0 Vss 16 Rser=200
+R1 TIA_op N001 3.3Meg tol=5 pwr=0.25
+C1 TIA_op N001 7p V=50 Rser=0.1
+XU1 0 N001 Vdd Vss TIA_op TL081
+R2 N001 0 50Meg tol=5 pwr=0.25
+C2 Vdd 0 0.1µ V=50 Rser=0.1
+C3 Vss 0 0.1µ V=50 Rser=0.1
+XU2 0 N002 Vdd Vss Vtg_amp_op TL081
+R3 N002 N006 1k tol=5 pwr=0.25
+R4 Vtg_amp_op N002 100k tol=5 pwr=0.25
+C4 Vdd 0 0.1µ V=50 Rser=0.1
+C5 Vss 0 0.1µ V=50 Rser=0.1
+XU3 NC_01 N004 Vtg_amp_op NC_02 N004 0 N010 N011 0 N004 Vtg_amp_op N008 N003 Vdd Vss N008 AD630
+V3 N010 0 PULSE(0 5 23u 1p 1p 0.1m 1m)
+C6 Vdd 0 0.1µ V=50 Rser=0.1
+C7 Vss 0 0.1µ V=50 Rser=0.1
+R5 Vdd N011 10k tol=5 pwr=0.25
+R6 N011 0 1.2k tol=5 pwr=0.25
+R7 Vdd N003 10k tol=5 pwr=0.25
+C8 N001 0 588p
+I1 0 N001 PULSE(0 10n 0 1p 1p 0.1m 1m) AC 10n
+C12 N006 TIA_op 1µ V=50 Rser=0.1
+R8 N009 N008 220k tol=5 pwr=0.25
+XU5 N007 filter_op Vdd Vss filter_op TL081
+R9 N005 N009 470k tol=5 pwr=0.25
+R10 N007 N005 470k tol=5 pwr=0.25
+C9 N009 0 220n V=50 Rser=0.1
+C10 N007 0 220n V=50 Rser=0.1
+C11 filter_op N005 220n V=50 Rser=0.1
+R11 out filter_op 6.8k
+C13 out 0 10µ
+.tran 0 20m 0 5u
+.optionz cshunt = 1e-15
+* Transimpedance amplifier
+* AC voltage gain amplifier
+* Demodulator
+;ac oct 100 1 10meg
+.lib ad630.sub.cir
+.lib C:\Users\Shachi\Documents\LTspiceXVII\TL081.sub
+.backanno
+.end
